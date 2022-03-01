@@ -1,19 +1,23 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { persistReducer } from "redux-persist";
+import { PersistConfig, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import ColorModeSlice from "./ColorModeSlice";
 import ConversationsSlice from "./ConversationsSlice";
 
-const persistConfig = {
-  key: "color-mode",
-  storage,
-};
-
 const rootReducer = combineReducers({
-  colorMode: persistReducer(persistConfig, ColorModeSlice),
+  colorMode: ColorModeSlice,
   conversations: ConversationsSlice,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-export default rootReducer;
+const persistConfig: PersistConfig<RootState> = {
+  key: "root",
+  storage,
+  whitelist: ["colorMode"],
+  debug: true,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export default persistedReducer;
