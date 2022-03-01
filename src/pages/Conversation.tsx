@@ -15,7 +15,7 @@ import { Box } from "@mui/system";
 import * as React from "react";
 import { useEffect, useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { setSelected } from "../app/features/ConversationsSlice";
+import { setSelected } from "../app/reducers/ConversationsSlice";
 import { useConversationsSelector } from "../app/selectors";
 import { useAppDispatch } from "../app/store";
 import MessageLeft from "../components/MessageLeft";

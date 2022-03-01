@@ -1,40 +1,42 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import {
   FLUSH,
   PAUSE,
   PERSIST,
-  persistReducer,
   persistStore,
   PURGE,
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
-import storage from "redux-persist/lib/storage";
-import ColorModeSlice from "./features/ColorModeSlice";
-import ConversationsSlice from "./features/ConversationsSlice";
+import rootReducer from "./reducers/rootReducer";
 
-const persistConfig = {
-  key: "color-mode",
-  storage,
-};
-
-const rootReducer = combineReducers({
-  colorMode: persistReducer(persistConfig, ColorModeSlice),
-  conversations: ConversationsSlice,
-});
+const REDUX_PERSIST_IGNORE_ACTIONS = [
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+];
 
 const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [...REDUX_PERSIST_IGNORE_ACTIONS],
       },
     }),
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+if (process.env.NODE_ENV === "development" && module.hot) {
+  module.hot.accept("./reducers/rootReducer", () => {
+    const newRootReducer = require("./reducers/rootReducer").default;
+    store.replaceReducer(newRootReducer);
+  });
+}
+
 export type AppDispatch = typeof store.dispatch;
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 

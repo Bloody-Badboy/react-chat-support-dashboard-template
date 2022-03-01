@@ -15,8 +15,8 @@ import {
 import * as React from "react";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { toggleColorMode } from "../app/features/ColorModeSlice";
-import { setConversations } from "../app/features/ConversationsSlice";
+import { toggleColorMode } from "../app/reducers/ColorModeSlice";
+import { setConversations } from "../app/reducers/ConversationsSlice";
 import { useConversationsSelector } from "../app/selectors";
 import { useAppDispatch } from "../app/store";
 import ConversationList from "../components/ConversationList";

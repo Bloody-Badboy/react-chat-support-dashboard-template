@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { ConversationsState } from "../features/ConversationsSlice";
-import { RootState } from "../store";
+import { ConversationsState } from "../reducers/ConversationsSlice";
+import { RootState } from "../reducers/rootReducer";
 
 export const useColorModeSelector = () =>
   useSelector((state: RootState) => state.colorMode);
