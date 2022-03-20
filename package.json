@@ -14,6 +14,7 @@
     "numeral": "^2.0.6",
     "react": "latest",
     "react-dom": "latest",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^7.2.6",
     "react-router-dom": "6",
     "react-scripts": "latest",

@@ -10,7 +10,7 @@ import {
   Tabs,
   Tooltip,
   Typography,
-  useTheme,
+  useTheme
 } from "@mui/material";
 import * as React from "react";
 import { useEffect } from "react";
@@ -80,6 +80,20 @@ const ConversationsLayout: React.FC = () => {
     );
   }
 
+
+
+  const loadMoreResolved = () => {
+    console.log("load more resolved");
+  };
+
+  const loadMoreUnResolved = () => {
+    console.log("load more unResolved");
+  };
+
+  const loadMoreAll = () => {
+    console.log("load more all");
+  };
+
   return (
     <RootStyle>
       <Grid container>
@@ -135,31 +149,49 @@ const ConversationsLayout: React.FC = () => {
               </Tabs>
             </Box>
             <Box
+              id="unresolved-conversations"
               hidden={value !== 0}
               sx={{
                 overflowX: "hidden",
                 overflowY: "auto",
               }}
             >
-              <ConversationList conversations={unResolvedConversations} />
+              <ConversationList
+                conversations={unResolvedConversations}
+                scrollableTarget="unresolved-conversations"
+                hasMore={true}
+                onLoadMore={loadMoreUnResolved}
+              />
             </Box>
             <Box
+              id="resolved-conversations"
               hidden={value !== 1}
               sx={{
                 overflowX: "hidden",
                 overflowY: "auto",
               }}
             >
-              <ConversationList conversations={resolvedConversations} />
+              <ConversationList
+                conversations={resolvedConversations}
+                scrollableTarget="resolved-conversations"
+                hasMore={true}
+                onLoadMore={loadMoreResolved}
+              />
             </Box>
             <Box
+              id="all-conversations"
               hidden={value !== 2}
               sx={{
                 overflowX: "hidden",
                 overflowY: "auto",
               }}
             >
-              <ConversationList conversations={allConversations} />
+              <ConversationList
+                conversations={allConversations}
+                scrollableTarget="all-conversations"
+                hasMore={true}
+                onLoadMore={loadMoreAll}
+              />
             </Box>
           </Box>
         </Grid>
